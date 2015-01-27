@@ -1,5 +1,5 @@
 {
-    "name": "laacz/XLSParser",
+    "name": "laacz/xls-parser",
     "description": "Library to parse XLS files",
     "license": "BSD",
     "keywords": ["laacz"],
