@@ -15,7 +15,7 @@ newer Excel files.
 
 # Install
 
-Via command line: `composer require laacz/xls-parser:dev-master`.
+Via command line: `composer require laacz/xls-parser`.
 
 # Tests
 
