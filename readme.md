@@ -13,6 +13,14 @@ Issues and pull requests are accepted.
 newer Excel files.
 * Little endian system because of PHP's unpack/pack. If you're not on Sparc, you should be covered.
 
+# Install
+
+composer install 
+
+# Tests
+
+Install dependencies with `composer install --dev`, then run tests with `vendor/bin/phpunit`.
+
 # Usage
 
 KISS. Provide filename and it gets loaded or parsed.
@@ -71,4 +79,3 @@ For example: 2014-12-31 12:59:59.
 * Performance might be better.
 * Abstract formatting.
 * Add helper methods for common tasks - returning columns, ranges, etc.
- 
