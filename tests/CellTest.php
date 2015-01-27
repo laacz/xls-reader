@@ -67,7 +67,5 @@ class CellTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals('MERGED A2:B2', $sheet[1][0]->value);
         $this->assertEquals('D2', $sheet[1][3]->value);
         $this->assertEquals(1.0, $sheet[0][4]->value, '', .001);
-
-        print_r($book->font_list);
     }
 }
