@@ -26,7 +26,7 @@ Install dependencies with `composer install --dev`, then run tests with `vendor/
 KISS. Provide filename and it gets loaded or parsed.
 
 ```php
-$book = new laacz\XLSReader\Book(file_get_content('workbook.xls'));
+$book = new laacz\XLSParser\Book(file_get_content('workbook.xls'));
 ```
 
 # Accessing sheets
