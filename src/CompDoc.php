@@ -13,8 +13,13 @@ class CompDoc
     public $dir_first_sec_sid = 0;
     public $min_size_std_stream;
 
-    function __construct($data)
+    protected $ignore_workbook_corruption_error = false;
+
+
+    function __construct($data, $ignore_workbook_corruption_error = false)
     {
+        $this->ignore_workbook_corruption_error = $ignore_workbook_corruption_error;
+
         if (substr($data, 0, 8) !== "\xD0\xCF\x11\xE0\xA1\xB1\x1A\xE1") {
             throw new CompDocException('Not an OLE2 compound document (' . Helper::as_hex(substr($data, 0, 8)) . ')!');
         }
@@ -276,7 +281,7 @@ class CompDoc
         }
 
         if ($d->tot_size >= $this->min_size_std_stream) {
-            $result = $this->locate_stream($this->mem, 512, $this->SAT, $this->sec_size, $d->first_SID, $d->tot_size, $qname, $d->DID + 6);
+            $result = $this->locate_stream($this->mem, 512, $this->SAT, $this->sec_size, $d->first_SID, $d->tot_size, $qname, $d->DID + 6, $this->ignore_workbook_corruption_error);
         } else {
             $result = [$this->get_stream($this->SSCS, 0, $this->SSAT, $this->short_sec_size, $d->first_SID, $d->tot_size, "$qname (from SSCS)", null),
             0,
@@ -288,7 +293,7 @@ class CompDoc
 
     }
 
-    function locate_stream($data, $base, $sat, $sec_size, $start_sid, $expected_stream_size, $qname, $seen_id)
+    function locate_stream($data, $base, $sat, $sec_size, $start_sid, $expected_stream_size, $qname, $seen_id, $ignore_workbook_corruption_error = false)
     {
         $s = $start_sid;
         if ($s < 0) {
@@ -303,7 +308,7 @@ class CompDoc
         $found_limit = (int)(($expected_stream_size + $sec_size - 1) / $sec_size);
 
         while ($s >= 0) {
-            if ($this->seen[$s]) {
+            if ($this->seen[$s] && !$ignore_workbook_corruption_error) {
                 throw new CompDocException("$qname corruption: seen[{$s}] == {$this->seen[$s]}");
             }
             $this->seen[$s] = $seen_id;

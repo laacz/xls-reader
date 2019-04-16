@@ -357,6 +357,12 @@ class Book extends Dumpable implements ArrayAccess, IteratorAggregate
     # <br /> -- New in version 0.6.1. Extracted only if open_workbook(..., formatting_info=True)
     public $palette_record = [];
 
+
+    ##
+    # If some xls file reported corrupted, but can be opened in Excel, one may set this option to true
+    # in order to ignore error and not throw Eception in Compdoc@locate_stream method.
+    public $ignore_workbook_corruption_error = false;
+
     public function __construct($data, Array $config = [])
     {
 
@@ -1738,7 +1744,7 @@ class Book extends Dumpable implements ArrayAccess, IteratorAggregate
     public function loadBiff28()
     {
         $this->base = 0;
-        $cd = new CompDoc($this->mem);
+        $cd = new CompDoc($this->mem, $this->ignore_workbook_corruption_error);
 
         if (USE_FANCY_CD) {
             foreach (['Workbook', 'Book'] as $qname) {
