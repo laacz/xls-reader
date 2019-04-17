@@ -2,7 +2,7 @@
     "name": "laacz/xls-parser",
     "description": "Library to parse XLS files",
     "homepage": "https://github.com/laacz/xls-reader",
-    "license": "BSD",
+    "license": "MIT",
     "keywords": ["xls"],
     "authors": [
         {
