@@ -934,7 +934,7 @@ class Sheet implements ArrayAccess, IteratorAggregate
 
                     break;
                 case XL_MERGEDCELLS:
-                    if (!$fmt_info) continue;
+                    if (!$fmt_info) break;
                     $pos = Helper::unpack_cell_range_address_list_update_pos($this->merged_cells, $data, 0, $bv, 8);
                     assert($pos == $data_len);
                     break;
