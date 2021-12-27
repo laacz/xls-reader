@@ -67,7 +67,7 @@ class Helper
     {
         # <BH
         $fmt = 'Cv';
-        list($nchars) = array_values(unpack($fmt{$lenlen-1}, substr($data, $pos, $lenlen)));
+        list($nchars) = array_values(unpack($fmt[$lenlen-1], substr($data, $pos, $lenlen)));
         $pos += $lenlen;
 //        die($encoding);
         return Helper::convert_encoding(substr($data, $pos, $nchars), 'utf-8', $encoding);
@@ -80,7 +80,7 @@ class Helper
         } else {
             # <BH
             $fmt = 'Cv';
-            list($nchars) = array_values(unpack($fmt{$lenlen-1}, substr($data, $pos, $lenlen)));
+            list($nchars) = array_values(unpack($fmt[$lenlen-1], substr($data, $pos, $lenlen)));
             $pos += $lenlen;
         }
         $newpos = $pos + $nchars;
@@ -94,13 +94,13 @@ class Helper
         } else {
             # <BH
             $fmt = 'Cv';
-            list($nchars) = array_values(unpack($fmt{$lenlen-1}, substr($data, $pos, $lenlen)));
+            list($nchars) = array_values(unpack($fmt[$lenlen-1], substr($data, $pos, $lenlen)));
             $pos+=$lenlen;
         }
         if (!$nchars && !substr($data, $pos)) {
             return ['', $pos];
         }
-        $options = ord($data{$pos});
+        $options = ord($data[$pos]);
         $pos ++;
         $phonetic = $options & 0x04;
         $richtext = $options & 0x08;
@@ -140,7 +140,7 @@ class Helper
     {
         # <BH
         $fmt = 'Cv';
-        list($nchars) = array_values(unpack($fmt{$lenlen-1}, substr($data, $pos, $lenlen)));
+        list($nchars) = array_values(unpack($fmt[$lenlen-1], substr($data, $pos, $lenlen)));
         $pos += $lenlen;
         $options = ord($data[$pos]);
         $pos ++;
